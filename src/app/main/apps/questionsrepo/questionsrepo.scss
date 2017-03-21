@@ -1,0 +1,325 @@
+#questionq {
+    position: relative;
+ 
+    /**
+    Z { >. applies to a,b,c. }
+    >c {.d} applies to d only
+    <div id="Z">
+        <div a></div>
+        <div b></div>
+        <div c>
+            <div d></div>
+        </div>
+    </div>
+    **/
+    > .headerq {
+        height: 76px;
+        min-height: 76px;
+        max-height: 76px;
+
+        .logo {
+
+            .logo-icon {
+                padding-left: 20px;
+                margin: 0 16px 0 0;
+            }
+
+            .logo-text {                
+                font-size: 24px;
+            }
+        }
+
+        md-icon {
+            color: #FFFFFF;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+
+            label {
+                padding-right: 4px;
+                cursor: pointer;
+
+                md-icon {
+                    color: rgba(255, 255, 255, 0.8);
+                }
+
+            }
+
+            md-input-container {
+
+                .md-errors-spacer {
+                    display: none;
+                }
+
+                input {
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+                    color: rgba(255, 255, 255, 0.8);
+                    width: 240px;
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.8);
+                    }
+
+                    &:focus {
+                        border-bottom: 1px solid white;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        &.selected-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background-image: none;
+            opacity: 1 !important;
+
+            .close-button-wrapper {
+                width: 244px;
+            }
+        }
+    }
+
+    > .contents {
+        position: absolute;
+        padding: 16px 90px 0 14px;
+        top: 76px;
+        bottom: 0;
+        right: 0;
+        left: 20px;
+
+           .questionoption{
+                padding-top: 50px;
+                padding-bottom: 7px;
+                padding-left:20px;
+            }
+
+            .description {
+                padding-bottom: 20px;
+            }
+
+            .fades.ng-hide {
+            opacity: 0;
+            }
+
+            .fades.ng-hide-remove,
+            .fades.ng-hide-add {
+            display: block !important;
+            opacity: 0;
+            }
+
+            .fades.ng-hide-remove {
+            transition: all linear 200ms;
+            opacity: 0;
+            }
+
+            .fades.ng-hide-add {
+            transition: all linear 50ms;
+            opacity: 0;
+            }
+
+          .questionsnav{
+            padding: 16px 90px 0 4px;
+            position: fixed;
+            top: 300px;
+            left: 84px;
+            right: 0;
+            bottom: 0;
+        }
+
+        >  .loop {
+                padding: 16px 90px 0 4px;
+                position: absolute;
+                top: 280px;
+                left: 84px;
+                right: 0;
+                bottom: 0;
+
+
+                  .md-content {
+                    margin: 16px; 
+                    }
+
+                    #vertical-container {
+                    height: 444px;
+                    width: 600px; 
+                    border: solid 1px grey; 
+                    }
+
+                    .repeated-item {
+                    border-bottom: 1px solid #ddd;
+                    padding-left: 16px; 
+                    padding-bottom : 20px;
+                    padding-top:20px;
+                    }
+
+                    
+
+                }
+            
+
+        > md-sidenav {
+            box-shadow: $whiteframe-shadow-1dp;
+            padding: 0;
+        }
+        
+        .radiocontent1 {
+            padding: 16px 90px 0 4px;
+            position: relative;
+            top: 70px;
+            left: 24px;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }   
+
+        .radiocontent1   div p{
+            padding-bottom: 30px;
+        }
+
+        
+        .main {
+            padding: 16px 90px 0 4px;
+            position: absolute;
+            top: 800px;
+            left: 24px;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+
+            
+
+            .questions-list {
+                position: relative;
+                padding-bottom: 0;
+
+                .md-subheader {
+                    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+
+                    ._md-subheader-inner {
+                        padding: 16px;
+                    }
+
+                    .questions-count {
+                        padding-left: 4px;
+                    }
+
+                    .list-title {
+                        margin-right: 4px;
+                    }
+
+                    .edit-group-form {
+
+                        .editable-controls {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: flex-start;
+
+                            .editable-input {
+                                border: 1px solid rgba(0, 0, 0, 0.2);
+                                padding: 4px 6px;
+                                margin-right: 6px;
+                                font-size: 13px;
+                            }
+
+                            .editable-buttons {
+
+                            }
+                        }
+
+                        .edit-group-button {
+                            margin: 0;
+                        }
+
+                        .md-button {
+                            margin: 0;
+                            margin: 0;
+                            padding: 0;
+                            height: 32px;
+                            min-height: 32px;
+                            line-height: 32px;
+                            width: 32px;
+                        }
+                    }
+                }
+
+                .question-item {
+                    position: absolute;
+                    right: 0;
+                    left: 0;
+                    width: 100%;
+                    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+                    background: white;
+                    transition: transform 200ms ease-out;
+                    will-change: transform;
+
+                    &:last-of-type {
+                        margin-bottom: 24px;
+                    }
+
+                    &.ng-leave {
+                        transform: translateY(0);
+                        display: none;
+
+                        &.ng-leave-active {
+                            transform: translateY(-100%);
+                        }
+                    }
+
+                    &.ng-hide {
+                        display: none;
+                    }
+
+                    &.ng-hide-add-active,
+                    &.ng-hide-remove-active {
+                        display: block;
+                        transition-property: all;
+                    }
+                }
+            }
+
+            .no-results {
+                box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+            }
+        }
+    }
+
+
+
+    #add-question-button {
+        position: fixed;
+        bottom: 8px;
+        right: 8px;
+        padding: 0;
+    }
+}
+
+
+         .questionsnav{
+            padding: 16px 90px 0 4px;
+            position: fixed;
+            top: 300px;
+            left: 84px;
+            right: 0;
+            bottom: 0;
+        }
+
+// RESPONSIVE
+@media screen and (min-width: $layout-breakpoint-md) {
+
+    #questions {
+
+        > .contents {
+
+            .main {
+                left: 78px;
+            }
+        }
+    }
+}

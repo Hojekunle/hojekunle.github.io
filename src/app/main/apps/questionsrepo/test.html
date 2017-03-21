@@ -1,0 +1,238 @@
+<div id="questions" class="page-layout simple left-sidenav inner-sidenav">
+
+    <!-- HEADER -->
+    <div class="headers md-accent-bg" layout="row" layout-align="space-between center">
+
+        <!-- APP TITLE -->
+        <div layout="row" layout-align="start center">
+           
+
+            <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-account-box" class="s24"></md-icon>
+                </span>
+                <span class="logo-text" translate="questions.questions">questions</span>
+            </div>
+        </div>
+        <!-- / APP TITLE -->
+
+        <!-- SEARCH -->
+        <div class="search-input-wrapper" layout="row" layout-align="start center">
+            <label for="search"> 
+                <md-icon md-font-icon="icon-magnify"></md-icon>
+            </label>
+            <md-input-container md-no-float class="m-0">
+                <input id="search" placeholder="Search for anyone" type="text" ng-model="vm.search" translate
+                       translate-attr-placeholder="questions.SEARCH_FOR_ANYONE">
+            </md-input-container>
+        </div>
+        <!-- / SEARCH -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- SELECTED BAR HIDDEN-->
+    <div ng-show="vm.selectedquestions.length > 0" class="selected-bar header animate-slide-down md-accent-bg"
+         layout="row" layout-align="start center">
+
+        <div class="close-button-wrapper" ng-click="vm.selectedquestions =[]">
+            <md-button layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-arrow-left" class="mr-8"></md-icon>
+                <span translate="questions.BACK">Back</span>
+            </md-button>
+        </div>
+
+        <div flex layout="row" layout-align="space-between center">
+
+            <div>
+                <span class="selected-questions-count">
+                    <span>{{vm.selectedquestions.length}}</span>
+                    <span translate="questions.SELECTED">selected</span>
+                </span>
+
+                <md-menu class="select-menu" ng-if="!vm.currentThread">
+                    <md-button class="md-icon-button"
+                               ng-click="$mdOpenMenu($event)"
+                               aria-label="multi select toggle"
+                               translate translate-attr-aria-label="questions.MULTI_SELECT_TOGGLE">
+                        <md-icon md-font-icon="icon-menu-down"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-click="vm.selectAllquestions()" translate="questions.SELECT_ALL">
+                                Select all
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="vm.deselectquestions()" translate="questions.SELECT_NONE">
+                                Select none
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+
+            <div class="multi-select-actions">
+                <md-button class="md-icon-button" ng-click="vm.deleteSelectedquestions($event)"
+                           aria-label="delete selected" translate translate-attr-label="questions.DELETE_SELECTED">
+                    <md-icon md-font-icon="icon-delete"></md-icon>
+                </md-button>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- / SELECTED BAR -->
+
+    <!-- CONTENT -->
+    <div class="contents scrollable" md-background-bg layout="row"  layout-align="start center" ms-scroll>
+                <div class="md-padding" ng-cloak style="min-height:270px">
+                    <div layout="row" layout-wrap>
+                        <div flex="100" flex-gt-sm="50" layout="column">
+                            <md-checkbox ng-model="vm.truthy" ng-checked="true" label="md-checkbox">{{vm.truthy}}</md-checkbox>
+                        <div>
+                            <!--
+                            In IE, we cannot apply flex directly to <fieldset>
+                            @see https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers
+                            -->
+                            <fieldset class="standard" >
+                            <legend>Using &lt;md-checkbox&gt; with &lt;ng-checked&gt; </legend>
+                            <div layout="row" layout-wrap flex>
+                                <div flex="50" ng-repeat="item in vm.items">
+                                <md-checkbox ng-checked="vm.exists(item, vm.selected)" ng-change="toggle(item, vm.selected)" ng-model="item">
+                                    {{ item }} <span ng-if="vm.exists(item, vm.selected)">selected</span>
+                                </md-checkbox>
+                                </div>
+                            </div>
+                            </fieldset>
+                        </div>
+                        </div>
+                        <div flex="100" flex-gt-sm="50" layout="column">
+                        <div >
+                            <fieldset class="standard">
+                            <legend>Using &lt;input type="checkbox"&gt;</legend>
+                            <div layout="row" layout-wrap flex>
+                                <div ng-repeat="item in vm.items" class="standard" flex="50">
+                                <label>
+                                    <input type="checkbox" ng-checked="vm.exists(item, vm.selected)"
+                                        ng-click="vm.toggle(item, selected)"/>
+                                    {{ item }}
+                                </label>
+                                </div>
+                            </div>
+                            </fieldset>
+                        </div>
+                        </div>
+                        <div flex="100">
+                        <h2 class="md-title">Selected Items</h2>
+                        <code style="display: block; padding: 8px;">{{selected | json}}</code>
+                        </div>
+                    </div>
+                </div>
+        <!-- SIDENAV>       
+        <!-- / SIDENAV -->
+
+        <!--Form Questions-->
+        
+                
+                <form editable-form ng-submit="submit()"   ng-cloak="" layout-align="space-between center">
+                
+                            
+                            <p>Selected Value: <span >{{vm.data.group1 }}</span> </p>
+
+                            <md-radio-group ng-model="vm.data.group1">
+
+                            <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
+                            <md-radio-button value="Banana"> Banana </md-radio-button>
+                            <md-radio-button value="Mango">Mango</md-radio-button>
+
+                            </md-radio-group>
+
+                            <hr />
+
+                           
+                            <hr />   
+                            
+                                <div>
+                                    <p>Selected Value: <span >{{vm.questionSelected.selected  }}</span></p>
+                                    <md-radio-group ng-model="vm.questionSelected.selected" class="effect-radio-group">
+                                        <md-radio-button ng-repeat="d in vm.questions"
+                                                        ng-value="d.id"
+                                                        ng-disabled=" d.isDisabled "
+                                                        ng-class="{'md-align-top-left': d.id==1}" >
+                                            {{ d.name }}<br/>
+                                        <span class="ipsum"
+                                                ng-if="d.id == 1">
+                                            Hello
+                                        </span>
+                                        </md-radio-button>
+                                    </md-radio-group>
+                                </div>
+    
+                                <!---loop-->  
+                                <div class="loop" layout="column" layout-align="start center"
+                                        ng-repeat="que in vm.questions |  filter:query as filteredquestions track by que.id ">
+                                            <p>TestTest</p>
+                                            <div>{{que.id}} - John Smith (jts) - 01/01/2015</div><br/>
+                                            <div class="description"  ng-hide="{{!que.id==vm.me.selected}}">
+                                            {{vm.me.selected}}--{{que.name}}{{que.id}}
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non magna vel sem suscipit volutpat quis dictum orci.
+                                            Fusce sed pretium risus. Ut aliquet enim id sagittis finibus.
+                                            Nullam felis sapien, vestibulum vitae tempor id, malesuada commodo nisl.
+                                            </div>
+                                            
+                                            <p>Test End</p>
+
+                                            
+                                    
+                                </div> 
+                                <!---end of loop-->
+                                <div flex="50" ng-repeat="item in vm.items">
+                                    <md-checkbox ng-checked="vm.exists(item, vm.selected)" ng-click="toggle(item, vm.selected)">
+                                                    {{ item }} <span ng-if="vm.exists(item, vm.selected)">selected</span>
+                                    </md-checkbox>
+                                </div>
+
+                            <div class="questionsnav" layout="row" layout-align="space-between end" >
+                                <div><md-button class="md-raised" ng-click="addItem()" type="button">Previous</md-button></div>
+                                <div><md-button class="md-raised" ng-click="removeItem()" type="button">Next</md-button></div>
+                            </div>
+
+            
+
+<div class="main">
+            <!-- question LIST -->
+            <md-list class="questions-list">
+
+            <!-- NO RESULTS -->
+            <md-list-item class="no-results md-white-bg" ng-show="filteredquestions.length === 0">
+                <p translate="questions.NO_RESULTS">No results..</p>
+            </md-list-item>
+            <!-- / NO RESULTS -->
+            </md-list>
+        </div>
+        <!-- / MAIN -->
+                            
+
+                           
+
+                            <hr />
+                        
+
+                 
+         </form>
+
+   
+    <!--End Form Questions-->
+
+    </div>
+    <!-- / CONTENT -->
+
+    <!-- ADD question BUTTON -->
+    <md-button class="md-fab md-accent md-icon-button" id="add-question-button" ng-click="vm.openquestionDialog($event)"
+               aria-label="add question" translate translate-attr-aria-label="questions.ADD_question">
+        <md-icon md-font-icon="icon-account-plus"></md-icon>
+    </md-button>
+    <!-- / ADD question BUTTON -->
+
+</div>

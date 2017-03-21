@@ -1,0 +1,184 @@
+<div id="questions" class="page-layout simple left-sidenav inner-sidenav">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between center">
+
+        <!-- APP TITLE -->
+        <div layout="row" layout-align="start center">
+           
+
+            <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-account-box" class="s24"></md-icon>
+                </span>
+                <span class="logo-text" translate="questions.questions">questions</span>
+            </div>
+        </div>
+        <!-- / APP TITLE -->
+
+        <!-- SEARCH -->
+        <div class="search-input-wrapper" layout="row" layout-align="start center">
+            <label for="search"> 
+                <md-icon md-font-icon="icon-magnify"></md-icon>
+            </label>
+            <md-input-container md-no-float class="m-0">
+                <input id="search" placeholder="Search for anyone" type="text" ng-model="vm.search" translate
+                       translate-attr-placeholder="questions.SEARCH_FOR_ANYONE">
+            </md-input-container>
+        </div>
+        <!-- / SEARCH -->
+
+    </div>
+    <!-- / HEADER -->
+
+   
+
+    <!-- CONTENT -->
+    <div class="contentq" md-background-bg layout="row" layout-align="start start">
+
+        
+
+        <!-- MAIN -->
+        <div class="main scrollable" ms-scroll>
+
+            <!-- question LIST -->
+            <md-list class="questions-list">
+
+                <div class="md-padding" ng-cloak style="min-height:270px">
+                    <div layout="row" layout-wrap>
+                        <div flex="100" flex-gt-sm="90" layout="column">
+                        
+                            <!--
+                            In IE, we cannot apply flex directly to <fieldset>
+                            @see https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers
+                            -->
+                            <fieldset class="standard" >
+                            <legend>Using &lt;md-checkbox&gt; with &lt;ng-checked&gt; </legend>
+                            <div layout="row" layout-wrap flex>
+                                <div flex="100" ng-repeat="question in vm.questionr">
+
+                                <md-checkbox  
+                                class="questionoptions"
+                                 ng-click="vm.toggleSelectquestion(question, $event)"
+                                 ng-checked="vm.exists(question, vm.selectedquestions)"
+                                 aria-label="{{vm.exists(question, vm.selectedquestions) ? 'Deselect' : 'Select'}}">
+                                  <span>{{question.name}}</span>
+                                
+                                </md-checkbox>
+
+
+                                <!--md-checkbox ng-checked="vm.exists(item.name, vm.selectedquestions)" ng-change="toggle(item.name, vm.selected)" ng-model="item">
+                                    {{ item }} <span ng-if="vm.exists(item, vm.selectedquestions)">selected</span>
+                                </md-checkbox>
+                                </div-->
+                                </div>
+                                </fieldset>
+                   
+                        </div>
+                    </div>
+                </div>
+
+                <!-- question ITEM -->
+                <md-list-item class="question-item md-white-bg" md-ink-ripple
+                              ng-repeat="question in vm.questions | filter:query as filteredquestions track by $index "
+                              ng-click="vm.openquestionDialog($event, question)"
+                              ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredquestions.length - $index}"
+                              ng-class="{'selected': vm.isSelected(question)}">
+
+                    <md-checkbox ng-click="vm.toggleSelectquestion(question, $event)"
+                                 ng-checked="vm.exists(question, vm.selectedquestions)"
+                                 aria-label="{{vm.exists(question, vm.selectedquestions) ? 'Deselect' : 'Select'}}">
+                    </md-checkbox>
+
+                    <img class="md-avatar" ng-if="question.avatar" alt="{{question.name}}"
+                         ng-src="{{question.avatar}}"/>
+
+                    <p class="text-truncate font-weight-600">{{question.name}} {{question.lastName}}</p>
+
+
+                    <p class="email text-truncate hide show-gt-sm">
+                        {{question.email}}
+                    </p>
+
+                    <p class="phone text-truncate hide show-gt-md">
+                        {{question.phone}}
+                    </p>
+
+                    <p class="job-title text-truncate hide show-gt-lg">
+                        {{question.jobTitle}}
+                    </p>
+
+                    <p class="company text-truncate hide show-gt-lg">
+                        {{question.company}}
+                    </p>
+
+                    <div class="actions" layout="row" layout-align="start center">
+                        <md-button class="md-icon-button  hide show-gt-xs"
+                                   ng-click="$event.stopPropagation();vm.toggleInArray(question.id, vm.user.starred)"
+                                   aria-label="Toggle starred" translate
+                                   translate-attr-aria-label="questions.TOGGLE_STARRED">
+                            <md-icon ng-if="vm.exists(question.id,vm.user.starred)" md-font-icon="icon-star"
+                                     class="amber-fg"></md-icon>
+                            <md-icon ng-if="!vm.exists(question.id,vm.user.starred)"
+                                     md-font-icon="icon-star-outline"></md-icon>
+                        </md-button>
+
+                        <md-menu>
+                            <md-button class="md-icon-button" aria-label="More" translate
+                                       translate-attr-aria-label="questions.MORE">
+                                <md-icon md-font-icon="icon-dots-vertical" ng-click="$mdOpenMenu($event)"></md-icon>
+                            </md-button>
+
+                            <md-menu-content width="3">
+                                <md-menu-item>
+                                    <md-button ng-click="vm.deletequestionConfirm(question, ev)"
+                                               translate="questions.DELETE_question">
+                                        Delete question
+                                    </md-button>
+                                </md-menu-item>
+
+                                <md-divider ng-if="vm.user.groups"></md-divider>
+
+                                <md-subheader class="md-no-sticky" ng-if="vm.user.groups">Groups</md-subheader>
+
+                                <md-list-item ng-if="vm.user.groups" ng-repeat="group in vm.user.groups"
+                                              ng-click="vm.toggleInArray(question.id,group.questionIds)">
+                                    <p class="pl-8"
+                                       ng-style="vm.exists(question.id,group.questionIds) && {'font-weight':'500'}">
+                                        {{group.name}}
+                                    </p>
+                                </md-list-item>
+
+                            </md-menu-content>
+                        </md-menu>
+
+                    </div>
+
+                </md-list-item>
+                <!-- question ITEM -->
+
+            </md-list>
+            <!-- / question LIST -->
+
+            
+
+            <!-- NO RESULTS -->
+            <md-list-item class="no-results md-white-bg" ng-show="filteredquestions.length === 0">
+                <p translate="questions.NO_RESULTS">No results..</p>
+            </md-list-item>
+            <!-- / NO RESULTS -->
+
+        </div>
+        <!-- / MAIN -->
+
+    </div>
+    <!-- / CONTENT -->
+
+    <!-- ADD question BUTTON -->
+    <md-button class="md-fab md-accent md-icon-button" id="add-question-button" ng-click="vm.openquestionDialog($event)"
+               aria-label="add question" translate translate-attr-aria-label="questions.ADD_question">
+        <md-icon md-font-icon="icon-account-plus"></md-icon>
+    </md-button>
+    <!-- / ADD question BUTTON -->
+
+</div>
